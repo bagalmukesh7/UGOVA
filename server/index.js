@@ -15,7 +15,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Seed mock database
-await seedData();
+try {
+  await seedData();
+  console.log('Database seeded successfully');
+} catch (err) {
+  console.error('Database seeding failed:', err.message);
+}
 
 app.use(cors());
 app.use(express.json());
