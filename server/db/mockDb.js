@@ -12,25 +12,29 @@ const db = {
 
 // Seed initial admin
 const seedAdmin = async () => {
-  const hashedPassword = await bcrypt.hash('admin123', 10);
-  db.users.push({
-    id: 'admin-001',
-    email: 'admin@ugova.gov',
-    password: hashedPassword,
-    name: 'System Admin',
-    role: 'admin',
-    phone: '9876543210',
-    isVerified: true,
-    createdAt: new Date().toISOString(),
-    lastLogin: new Date().toISOString(),
-    profile: {
-      education: 'Master of Technology',
-      state: 'Delhi',
-      city: 'New Delhi',
-      age: 35,
-      category: 'General',
-    },
-  });
+  try {
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    db.users.push({
+      id: 'admin-001',
+      email: 'admin@ugova.gov',
+      password: hashedPassword,
+      name: 'System Admin',
+      role: 'admin',
+      phone: '9876543210',
+      isVerified: true,
+      createdAt: new Date().toISOString(),
+      lastLogin: new Date().toISOString(),
+      profile: {
+        education: 'Master of Technology',
+        state: 'Delhi',
+        city: 'New Delhi',
+        age: 35,
+        category: 'General',
+      },
+    });
+  } catch (err) {
+    console.error('Admin seed error:', err.message);
+  }
 };
 
 // Seed mock opportunities
@@ -214,7 +218,6 @@ const seedData = async () => {
     console.log(`Seeded ${db.users.length} users and ${db.opportunities.length} opportunities`);
   } catch (err) {
     console.error('Seed error:', err.message);
-    // Ensure at least some data exists
     if (db.opportunities.length === 0) seedOpportunities();
   }
 };
