@@ -12,8 +12,9 @@ const db = {
 
 // Seed initial admin
 const seedAdmin = async () => {
-  const hashedPassword = await bcrypt.hash('admin123', 10);
-  db.users.push({
+  try {
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    db.users.push({
     id: 'admin-001',
     email: 'admin@ugova.gov',
     password: hashedPassword,
