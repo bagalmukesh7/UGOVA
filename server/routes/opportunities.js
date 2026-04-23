@@ -1,5 +1,4 @@
 import express from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db/mockDb.js';
 import { authenticate } from '../middleware/auth.js';
 
@@ -62,7 +61,7 @@ router.post('/', authenticate, (req, res) => {
     const { title, type, organization, description, eligibility, deadline, location, category, url } = req.body;
 
     const opportunity = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       title,
       type,
       organization,
