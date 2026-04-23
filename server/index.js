@@ -7,11 +7,15 @@ import applicationRoutes from './routes/applications.js';
 import adminRoutes from './routes/admin.js';
 import userRoutes from './routes/user.js';
 import aiRoutes from './routes/ai.js';
+import { seedData } from './db/mockDb.js';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Seed mock database
+await seedData();
 
 app.use(cors());
 app.use(express.json());
