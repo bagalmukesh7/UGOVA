@@ -12,9 +12,8 @@ const db = {
 
 // Seed initial admin
 const seedAdmin = async () => {
-  try {
-    const hashedPassword = await bcrypt.hash('admin123', 10);
-    db.users.push({
+  const hashedPassword = await bcrypt.hash('admin123', 10);
+  db.users.push({
     id: 'admin-001',
     email: 'admin@ugova.gov',
     password: hashedPassword,
@@ -209,8 +208,15 @@ const seedOpportunities = () => {
 };
 
 const seedData = async () => {
-  await seedAdmin();
-  seedOpportunities();
+  try {
+    await seedAdmin();
+    seedOpportunities();
+    console.log(`Seeded ${db.users.length} users and ${db.opportunities.length} opportunities`);
+  } catch (err) {
+    console.error('Seed error:', err.message);
+    // Ensure at least some data exists
+    if (db.opportunities.length === 0) seedOpportunities();
+  }
 };
 
 export { db, seedData };
