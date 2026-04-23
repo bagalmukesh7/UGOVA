@@ -1,4 +1,5 @@
 import express from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db/mockDb.js';
 import { authenticate } from '../middleware/auth.js';
 
